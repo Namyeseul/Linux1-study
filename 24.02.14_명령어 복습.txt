@@ -1,0 +1,1183 @@
+
+시스템 환경 변수:
+*환경변수란?
+시스템 또는 사용자 환경에서 사용되는 값이나 데이터이다. 
+이러한 변수들은 시스템 및 사용자 설정과 프로그램 동작을 
+제어하고 구성하는데 중요한 역할을 한다. 
+
+HOME: 사용자의 홈 디렉토리
+LANG: 사용자의 로케일 설정 (e.g. "ko_KR.UTF-8")
+TERM: 사용자 터미널 유형
+USER: 현재 로그인한 사용자 
+SHELL: 현재 사용하는 셸
+PATH: 외부 명령어를 검색하는 경로 목록
+PWD: 현재 작업 디렉토리 경로
+OLDPWD: 이전 작업 디렉토리 경로
+EDITOR: 기본 텍스트 편집기
+HISTSIZE: 명령어 히스토리 크기
+MAIL: 메일 스풀 파일 경로
+PS1: 프롬프트 문자열
+PS2: 두 번째 프롬프트 문자열(멀티라인 명령어를 사용할 때 출력하는)
+HISTFILE: 명령어 히스토리 파일
+
+단축키 
+Shift + PgUp: 지나간 이전 화면을 보여준다.
+Shift + PgDn: 지나간 이후 화면을 보여준다.
+Ctrl + L : 화면 지우기 (clear)
+
+시스템에 직접 로그인하는 방법: 로컬에서 콘솔을 이용해서 로그인
+시스템에 간접 로그인하는 방법: 원격에서 터미널을 이용해서 로그인 
+- putty.exe, ssh.exe
+
+CentOS 7을 설치하고 부팅이 되면 6개의 가상 콘솔이 열려있다.
+각 가상콘솔을 이동하는 단축키 형식: Alt + 펑션키(F1  ~ F6)
+Alt + F1: 첫 번째 가상콘솔  /dev/tty1
+Alt + F2: 두 번째 가상콘솔  /dev/tty2
+Alt + F3: 세 번째 가상콘솔  /dev/tty3
+Alt + F4: 네 번째 가상콘솔  /dev/tty4
+Alt + F5: 다섯 번째 가상콘솔  /dev/tty5
+Alt + F6: 여섯 번째 가상콘솔  /dev/tty6
+
+
+bash(Bourne Again Shell의 약자)에서 지원되는 명령행 편집 기능입니다. 
+명령행 단축키 
+Ctrl + l 터미널창 깨끗하게 지우기
+Ctrl + a 명령행의 가장 앞으로 이동
+Ctrl + e 명령행의 가장 뒤로 이동
+Ctrl + w 명령행의 바로 왼쪽을 삭제
+Ctrl + u 명령행의 왼쪽을 전부 삭제
+Ctrl + k 명령행의 오른쪽을 전부 삭제
+Ctrl + r 이전에 실행했던 명령어 검색가능.
+           반복해서 누르면 최신순으로 거슬러 올라간다.
+           ctrl+c, esc키를 이용해 나가기 가능
+Ctrl + d exit와 같은 기능. 1번 누르면 로그아웃되고 두번 누르면 터미널이 종료된다.
+           명령행을 작성중이면 실행되지 않음.
+
+
+명령어의 종류
+  . alias 명령어
+    - 메모리에 저장되어 있다.
+  . 내부 명령어
+    - 셸 내부에 저장되어 있다.
+    - (/root)/bin/bash
+    =시스템 부팅시에 필요한 기본적인 실행파일들이 위치,
+      파일 및 디렉토리 관리도구(e.g ls, cp, mv, cd)
+  . 외부 명령어
+    - 실행 디렉터리에 저장되어 있다.
+    - /bin(../root), /usr/bin, /sbin, /usr/sbin
+    /sbin=시스템 관리용 실행파일을 포함하는 디렉토리
+            시스템 관리 및 유지 보수 작업에 사용되는 명령어들이 위치
+            (e.g shutdown, reboot, poweroff/ifconfig,route/fsck)  
+
+명령어 우선순위 
+    1순위 alias 명령어(메모리) > 
+    2순위 내부 명령어(/bin/bash) > 
+    3순위 외부 명령어(/bin, /usr/bin, /sbin, /usr/sbin)
+
+
+파일 및 디렉토리 명령어
+ [ . --help: 일반적으로 외부명령어 도움말을 확인하는 명령어 --help는 명령어 뒤에 입력 ]
+  . help: 내부 명령어에 대한 도움말을 확인하는 명령어(/bin/bash, 부팅시 필요한 파일)
+  . man: 외부 명령어에 대한 도움말을 확인하는 명령어(/bin, /usr/bin,/sbin)
+  . pwd: 현재 작업 디렉토리의 경로를 표시하는 명령어
+  . tree: 디렉터리와 파일을 tree 형식으로 출력하는 명령어
+     command not found로 출력될 땐  
+     CentOS의 경우(sudo yum [-y] install tree)
+     ubuntu의 경우(sudo apt-get [-y] install tree) 명령어로 설치 필요
+  . cd: 작업 디렉토리를 변경하는 명령어
+  . ls: 디렉토리의 파일을 확인하는 명령어(-ㅣ=권한까지 길게,-a 모든 디렉토리 표시)
+  . mkdir: 디렉터리를 생성하는 명령어(-p옵션=경로가 없을경우 경로dir도 만듬)
+  . rmdir: 디렉터리를 삭제하는 명령어
+  . rm: 파일을 삭제하는 명령어(-r옵션=디렉토리 내부에 파일이 있어도 삭제)
+  . cp: 파일을 복사하는 명령어
+  . mv: 파일의 이동, 파일의 이름을 변경하는 명령어
+  . ln: 심볼릭 링크나 하드 링크를 생성하는 명령어
+  . echo: 메시지와 변수의 저장된 값을 출력하는 명령어
+  . stat: 파일 또는 파일 시스템 상태를 표시하는 명령어
+  . cat: 파일의 내용을 출력하는 명령어
+  . less/more: 파일의 내용을 출력하는 명령어 (페이지 단위)
+  . head: 파일의 처음 부분을 출력하는 명령어
+  . tail: 파일의 끝부분을 출력하는 명령어
+  . touch: 빈 파일을 생성하거나 파일의 최근 수정 시간을 변경하는 명령어
+  . grep: 파일에서 특정 패턴을 검색하는 명령어
+  . find: 파일을 검색하는 명령어
+  . chmod: 파일의 허가권을 변경하는 명령어
+  . chown: 파일의 소유권을 변경하는 명령어
+  . chgrp: 파일의 그룹을 변경하는 명령어
+
+패키지 관리
+  . yum: RedHat 계열 배포판(RHEL7, CentOS7)에서 사용하는 패키지 관리 도구
+  . dnf: edHat 계열 배포판(RHEL8,9 Rocky Linux8,9)에서 사용하는 패키지 관리 도구
+  . apt-get: Debian 계열 배포판(Debian, Unbuntu)에서 사용하는 패키지 관리 도구
+  . apt: Debian 계열 배포판(Debian, Unbuntu)에서 사용하는 패키지 관리 도구
+
+
+텍스트 편집기
+  . nano: 입문자용 편집기
+  . vi: 시니어급 편집기
+  . emacs: 리처드 스톨만 선생님께서 만든 편집기
+
+
+
+man, man-pages 패키지를 설치한다.=매뉴얼
+[root@localhost ~]# yum -y install man man-pages
+[root@localhost ~]# man ls
+[root@localhost ~]# man fork
+[root@localhost ~]# man puts
+[root@localhost ~]# man man
+[root@localhost ~]# man useradd
+-Q키로 나가기
+
+[man man에서 볼 수 있음]
+1   Executable programs or shell commands
+2   System calls (functions provided by the kernel)
+3   Library calls (functions within program libraries)
+4   Special files (usually found in /dev)
+5   File formats and conventions eg /etc/passwd
+6   Games
+7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
+8   System administration commands (usually only for root)
+9   Kernel routines [Non standard]
+
+명령어의 도움말
+  . 외부 명령어 --help, man 외부 명령어(실행디렉터리에 저장/bin,/usr/bin)
+    - e.g.) ls --help, man ls
+  . help 내부 명령어, man 내부 명령어(부팅시필요한 기본적인파일들/bin/bash)
+    - e.g.) help cd, man cd
+
+명령어 앞에 # 이 들어가면 주석으로 처리한다.
+(스크립트의 설명이나 메모 역할)
+C, Java 프로그래밍에서  // 
+Python 프로그래밍에서 #
+셸에서는 #
+
+[root@localhost home]# # askdfjaskdfjak
+[root@localhost home]# cd # cd /root  cd $HOME cd ~
+[root@localhost ~]# cd -
+/home
+[root@localhost home]# cd /root
+[root@localhost ~]# pwd
+/root
+[root@localhost ~]# cd -
+/home
+[root@localhost home]# echo $HOME
+/root
+[root@localhost home]# cd $HOME
+[root@localhost ~]# pwd
+/root
+[root@localhost ~]# cd -
+/home
+[root@localhost home]# cd ~
+[root@localhost ~]# pwd
+/root
+
+
+
+[root@localhost ~]# mkdir A [/A생성]
+[root@localhost ~]# mkdir B C D E [/B,/C,/D,/E 한번에 생성]
+[root@localhost ~]# ls [디렉터리 속 파일 확인]
+A  B  C  D  E  anaconda-ks.cfg
+[root@localhost ~]# ls -l [/마다 가지고 있는 권한까지 길게 옵션]
+합계 4
+drwxr-xr-x. 2 root root    6  2월 14 21:41 A
+drwxr-xr-x. 2 root root    6  2월 14 21:41 B
+drwxr-xr-x. 2 root root    6  2월 14 21:41 C
+drwxr-xr-x. 2 root root    6  2월 14 21:41 D
+drwxr-xr-x. 2 root root    6  2월 14 21:41 E
+-rw-------. 1 root root 1895  2월  8 20:29 anaconda-ks.cfg
+
+
+[root@localhost ~]# clear [터미널창 청소]
+[root@localhost ~]# man ls [ls 명령어 매뉴얼 보기]
+[root@localhost ~]# man ls
+[root@localhost ~]# man fork [fork명령어 매뉴얼]
+No manual entry for fork [fork매뉴얼을 찾을 수 없다는 뜻]
+[root@localhost ~]# yum [CentosOs기반 패키지 인스톨 명령어]
+Loaded plugins: fastestmirror
+You need to give some command
+Usage: yum [options] COMMAND
+
+List of Commands:
+
+check          Check for problems in the rpmdb
+check-update   Check for available package updates
+clean          Remove cached data
+deplist        List a package's dependencies
+distribution-synchronization Synchronize installed packages to the latest availa              ble versions
+downgrade      downgrade a package
+erase          Remove a package or packages from your system
+fs             Acts on the filesystem data of the host, mainly for removing docs              /lanuages for minimal hosts.
+fssnapshot     Creates filesystem snapshots, or lists/deletes current snapshots.
+groups         Display, or use, the groups information
+help           Display a helpful usage message
+history        Display, or use, the transaction history
+info           Display details about a package or group of packages
+install        Install a package or packages on your system
+list           List a package or groups of packages
+load-transaction load a saved transaction from filename
+makecache      Generate the metadata cache
+provides       Find what package provides the given value
+reinstall      reinstall a package
+repo-pkgs      Treat a repo. as a group of packages, so we can install/remove al              l of them
+repolist       Display the configured software repositories
+search         Search package details for the given string
+shell          Run an interactive yum shell
+swap           Simple way to swap packages, instead of using shell
+update         Update a package or packages on your system
+update-minimal Works like upgrade, but goes to the 'newest' package match which               fixes a problem that affects your system
+updateinfo     Acts on repository update information
+upgrade        Update packages taking obsoletes into account
+version        Display a version for the machine and/or available repos.
+
+
+Options:
+  -h, --help            show this help message and exit
+  -t, --tolerant        be tolerant of errors
+  -C, --cacheonly       run entirely from system cache, don't update cache
+  -c [config file], --config=[config file]
+                        config file location
+  -R [minutes], --randomwait=[minutes]
+                        maximum command wait time
+  -d [debug level], --debuglevel=[debug level]
+                        debugging output level
+  --showduplicates      show duplicates, in repos, in list/search commands
+  -e [error level], --errorlevel=[error level]
+                        error output level
+  --rpmverbosity=[debug level name]
+                        debugging output level for rpm
+  -q, --quiet           quiet operation
+  -v, --verbose         verbose operation
+  -y, --assumeyes       answer yes for all questions
+  --assumeno            answer no for all questions
+  --version             show Yum version and exit
+  --installroot=[path]  set install root
+  --enablerepo=[repo]   enable one or more repositories (wildcards allowed)
+  --disablerepo=[repo]  disable one or more repositories (wildcards allowed)
+  -x [package], --exclude=[package]
+                        exclude package(s) by name or glob
+  --disableexcludes=[repo]
+                        disable exclude from main, for a repo or for
+                        everything
+  --disableincludes=[repo]
+                        disable includepkgs for a repo or for everything
+  --obsoletes           enable obsoletes processing during updates
+  --noplugins           disable Yum plugins
+  --nogpgcheck          disable gpg signature checking
+  --disableplugin=[plugin]
+                        disable plugins by name
+  --enableplugin=[plugin]
+                        enable plugins by name
+  --skip-broken         skip packages with depsolving problems
+  --color=COLOR         control whether color is used
+  --releasever=RELEASEVER
+                        set value of $releasever in yum config and repo files
+  --downloadonly        don't update, just download
+  --downloaddir=DLDIR   specifies an alternate directory to store packages
+  --setopt=SETOPTS      set arbitrary config and repo options
+  --bugfix              Include bugfix relevant packages, in updates
+  --security            Include security relevant packages, in updates
+  --advisory=ADVS, --advisories=ADVS
+                        Include packages needed to fix the given advisory, in
+                        updates
+  --bzs=BZS             Include packages needed to fix the given BZ, in
+                        updates
+  --cves=CVES           Include packages needed to fix the given CVE, in
+                        updates
+  --sec-severity=SEVS, --secseverity=SEVS
+                        Include security relevant packages matching the
+                        severity, in updates
+
+  Plugin Options:
+[root@localhost ~]#
+[root@localhost ~]# rm
+rm: missing operand
+Try 'rm --help' for more information.
+[root@localhost ~]# yum 
+[무엇을 인스톨할 것인지 커멘드를 더 입력하라. 아래는 인스톨가능한 커멘드 정보]
+Loaded plugins: fastestmirror
+You need to give some command
+Usage: yum [options] COMMAND
+
+List of Commands:
+
+check          Check for problems in the rpmdb
+check-update   Check for available package updates
+clean          Remove cached data
+deplist        List a package's dependencies
+distribution-synchronization Synchronize installed packages to the latest availa              ble versions
+downgrade      downgrade a package
+erase          Remove a package or packages from your system
+fs             Acts on the filesystem data of the host, mainly for removing docs              /lanuages for minimal hosts.
+fssnapshot     Creates filesystem snapshots, or lists/deletes current snapshots.
+groups         Display, or use, the groups information
+help           Display a helpful usage message
+history        Display, or use, the transaction history
+info           Display details about a package or group of packages
+install        Install a package or packages on your system
+list           List a package or groups of packages
+load-transaction load a saved transaction from filename
+makecache      Generate the metadata cache
+provides       Find what package provides the given value
+reinstall      reinstall a package
+repo-pkgs      Treat a repo. as a group of packages, so we can install/remove al              l of them
+repolist       Display the configured software repositories
+search         Search package details for the given string
+shell          Run an interactive yum shell
+swap           Simple way to swap packages, instead of using shell
+update         Update a package or packages on your system
+update-minimal Works like upgrade, but goes to the 'newest' package match which               fixes a problem that affects your system
+updateinfo     Acts on repository update information
+upgrade        Update packages taking obsoletes into account
+version        Display a version for the machine and/or available repos.
+
+
+Options:
+  -h, --help            show this help message and exit
+  -t, --tolerant        be tolerant of errors
+  -C, --cacheonly       run entirely from system cache, don't update cache
+  -c [config file], --config=[config file]
+                        config file location
+  -R [minutes], --randomwait=[minutes]
+                        maximum command wait time
+  -d [debug level], --debuglevel=[debug level]
+                        debugging output level
+  --showduplicates      show duplicates, in repos, in list/search commands
+  -e [error level], --errorlevel=[error level]
+                        error output level
+  --rpmverbosity=[debug level name]
+                        debugging output level for rpm
+  -q, --quiet           quiet operation
+  -v, --verbose         verbose operation
+  -y, --assumeyes       answer yes for all questions
+  --assumeno            answer no for all questions
+  --version             show Yum version and exit
+  --installroot=[path]  set install root
+  --enablerepo=[repo]   enable one or more repositories (wildcards allowed)
+  --disablerepo=[repo]  disable one or more repositories (wildcards allowed)
+  -x [package], --exclude=[package]
+                        exclude package(s) by name or glob
+  --disableexcludes=[repo]
+                        disable exclude from main, for a repo or for
+                        everything
+  --disableincludes=[repo]
+                        disable includepkgs for a repo or for everything
+  --obsoletes           enable obsoletes processing during updates
+  --noplugins           disable Yum plugins
+  --nogpgcheck          disable gpg signature checking
+  --disableplugin=[plugin]
+                        disable plugins by name
+  --enableplugin=[plugin]
+                        enable plugins by name
+  --skip-broken         skip packages with depsolving problems
+  --color=COLOR         control whether color is used
+  --releasever=RELEASEVER
+                        set value of $releasever in yum config and repo files
+  --downloadonly        don't update, just download
+  --downloaddir=DLDIR   specifies an alternate directory to store packages
+  --setopt=SETOPTS      set arbitrary config and repo options
+  --bugfix              Include bugfix relevant packages, in updates
+  --security            Include security relevant packages, in updates
+  --advisory=ADVS, --advisories=ADVS
+                        Include packages needed to fix the given advisory, in
+                        updates
+  --bzs=BZS             Include packages needed to fix the given BZ, in
+                        updates
+  --cves=CVES           Include packages needed to fix the given CVE, in
+                        updates
+  --sec-severity=SEVS, --secseverity=SEVS
+                        Include security relevant packages matching the
+                        severity, in updates
+
+  Plugin Options:
+[root@localhost ~]#
+[root@localhost ~]# useradd
+Usage: useradd [options] LOGIN
+       useradd -D
+       useradd -D [options]
+
+Options:
+  -b, --base-dir BASE_DIR       base directory for the home directory of the
+                                new account
+  -c, --comment COMMENT         GECOS field of the new account
+  -d, --home-dir HOME_DIR       home directory of the new account
+  -D, --defaults                print or change default useradd configuration
+  -e, --expiredate EXPIRE_DATE  expiration date of the new account
+  -f, --inactive INACTIVE       password inactivity period of the new account
+  -g, --gid GROUP               name or ID of the primary group of the new
+                                account
+  -G, --groups GROUPS           list of supplementary groups of the new
+                                account
+  -h, --help                    display this help message and exit
+  -k, --skel SKEL_DIR           use this alternative skeleton directory
+  -K, --key KEY=VALUE           override /etc/login.defs defaults
+  -l, --no-log-init             do not add the user to the lastlog and
+                                faillog databases
+  -m, --create-home             create the user's home directory
+  -M, --no-create-home          do not create the user's home directory
+  -N, --no-user-group           do not create a group with the same name as
+                                the user
+  -o, --non-unique              allow to create users with duplicate
+                                (non-unique) UID
+  -p, --password PASSWORD       encrypted password of the new account
+  -r, --system                  create a system account
+  -R, --root CHROOT_DIR         directory to chroot into
+  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* fi              les
+  -s, --shell SHELL             login shell of the new account
+  -u, --uid UID                 user ID of the new account
+  -U, --user-group              create a group with the same name as the user
+  -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mappi              ng
+
+[root@localhost ~]#
+[root@localhost ~]# yum
+Loaded plugins: fastestmirror
+You need to give some command
+Usage: yum [options] COMMAND
+
+List of Commands:
+
+check          Check for problems in the rpmdb
+check-update   Check for available package updates
+clean          Remove cached data
+deplist        List a package's dependencies
+distribution-synchronization Synchronize installed packages to the latest availa              ble versions
+downgrade      downgrade a package
+erase          Remove a package or packages from your system
+fs             Acts on the filesystem data of the host, mainly for removing docs              /lanuages for minimal hosts.
+fssnapshot     Creates filesystem snapshots, or lists/deletes current snapshots.
+groups         Display, or use, the groups information
+help           Display a helpful usage message
+history        Display, or use, the transaction history
+info           Display details about a package or group of packages
+install        Install a package or packages on your system
+list           List a package or groups of packages
+load-transaction load a saved transaction from filename
+makecache      Generate the metadata cache
+provides       Find what package provides the given value
+reinstall      reinstall a package
+repo-pkgs      Treat a repo. as a group of packages, so we can install/remove al              l of them
+repolist       Display the configured software repositories
+search         Search package details for the given string
+shell          Run an interactive yum shell
+swap           Simple way to swap packages, instead of using shell
+update         Update a package or packages on your system
+update-minimal Works like upgrade, but goes to the 'newest' package match which               fixes a problem that affects your system
+updateinfo     Acts on repository update information
+upgrade        Update packages taking obsoletes into account
+version        Display a version for the machine and/or available repos.
+
+
+Options:
+  -h, --help            show this help message and exit
+  -t, --tolerant        be tolerant of errors
+  -C, --cacheonly       run entirely from system cache, don't update cache
+  -c [config file], --config=[config file]
+                        config file location
+  -R [minutes], --randomwait=[minutes]
+                        maximum command wait time
+  -d [debug level], --debuglevel=[debug level]
+                        debugging output level
+  --showduplicates      show duplicates, in repos, in list/search commands
+  -e [error level], --errorlevel=[error level]
+                        error output level
+  --rpmverbosity=[debug level name]
+                        debugging output level for rpm
+  -q, --quiet           quiet operation
+  -v, --verbose         verbose operation
+  -y, --assumeyes       answer yes for all questions
+  --assumeno            answer no for all questions
+  --version             show Yum version and exit
+  --installroot=[path]  set install root
+  --enablerepo=[repo]   enable one or more repositories (wildcards allowed)
+  --disablerepo=[repo]  disable one or more repositories (wildcards allowed)
+  -x [package], --exclude=[package]
+                        exclude package(s) by name or glob
+  --disableexcludes=[repo]
+                        disable exclude from main, for a repo or for
+                        everything
+  --disableincludes=[repo]
+                        disable includepkgs for a repo or for everything
+  --obsoletes           enable obsoletes processing during updates
+  --noplugins           disable Yum plugins
+  --nogpgcheck          disable gpg signature checking
+  --disableplugin=[plugin]
+                        disable plugins by name
+  --enableplugin=[plugin]
+                        enable plugins by name
+  --skip-broken         skip packages with depsolving problems
+  --color=COLOR         control whether color is used
+  --releasever=RELEASEVER
+                        set value of $releasever in yum config and repo files
+  --downloadonly        don't update, just download
+  --downloaddir=DLDIR   specifies an alternate directory to store packages
+  --setopt=SETOPTS      set arbitrary config and repo options
+  --bugfix              Include bugfix relevant packages, in updates
+  --security            Include security relevant packages, in updates
+  --advisory=ADVS, --advisories=ADVS
+                        Include packages needed to fix the given advisory, in
+                        updates
+  --bzs=BZS             Include packages needed to fix the given BZ, in
+                        updates
+  --cves=CVES           Include packages needed to fix the given CVE, in
+                        updates
+  --sec-severity=SEVS, --secseverity=SEVS
+                        Include security relevant packages matching the
+                        severity, in updates
+
+  Plugin Options:
+[root@localhost ~]#
+[root@localhost ~]# yum -y install man man-pages
+[yum설치하겠다 -y설치과정의 모든 질문에 yes man man-pages 설치]
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: mirror.navercorp.com
+ * extras: mirror.kakao.com
+ * updates: mirror.kakao.com
+base                                                                   | 3.6 kB  00:00:00
+extras                                                                 | 2.9 kB  00:00:00
+updates                                                                | 2.9 kB  00:00:00
+(1/4): base/7/x86_64/group_gz                                          | 153 kB  00:00:00
+(2/4): extras/7/x86_64/primary_db                                      | 250 kB  00:00:00
+(3/4): base/7/x86_64/primary_db                                        | 6.1 MB  00:00:04
+(4/4): updates/7/x86_64/primary_db                                     |  25 MB  00:00:08
+Package man-db-2.6.3-11.el7.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package man-pages.noarch 0:3.53-5.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================
+ Package                Arch                Version                   Repository         Size
+==============================================================================================
+Installing:
+ man-pages              noarch              3.53-5.el7                base              5.0 M
+
+Transaction Summary
+==============================================================================================
+Install  1 Package
+
+Total download size: 5.0 M
+Installed size: 4.6 M
+Downloading packages:
+경고: /var/cache/yum/x86_64/7/base/packages/man-pages-3.53-5.el7.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Public key for man-pages-3.53-5.el7.noarch.rpm is not installed
+man-pages-3.53-5.el7.noarch.rpm                                        | 5.0 MB  00:00:01
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-9.2009.0.el7.centos.x86_64 (@anaconda)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : man-pages-3.53-5.el7.noarch                                                1/1
+  Verifying  : man-pages-3.53-5.el7.noarch                                                1/1
+
+Installed:
+  man-pages.noarch 0:3.53-5.el7
+
+Complete!
+[root@localhost ~]#
+[root@localhost ~]# yum install mc
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.navercorp.com
+ * extras: mirror.kakao.com
+ * updates: mirror.kakao.com
+Resolving Dependencies
+--> Running transaction check
+---> Package mc.x86_64 1:4.8.7-11.el7 will be installed
+--> Processing Dependency: perl(strict) for package: 1:mc-4.8.7-11.el7.x86_64
+--> Processing Dependency: perl(bytes) for package: 1:mc-4.8.7-11.el7.x86_64
+--> Processing Dependency: perl(POSIX) for package: 1:mc-4.8.7-11.el7.x86_64
+--> Processing Dependency: perl(File::Temp) for package: 1:mc-4.8.7-11.el7.x86_64
+--> Processing Dependency: perl(File::Basename) for package: 1:mc-4.8.7-11.el7.x86_64
+--> Processing Dependency: /usr/bin/perl for package: 1:mc-4.8.7-11.el7.x86_64
+--> Processing Dependency: libgpm.so.2()(64bit) for package: 1:mc-4.8.7-11.el7.x86_64
+--> Running transaction check
+---> Package gpm-libs.x86_64 0:1.20.7-6.el7 will be installed
+---> Package perl.x86_64 4:5.16.3-299.el7_9 will be installed
+--> Processing Dependency: perl-libs = 4:5.16.3-299.el7_9 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Socket) >= 1.3 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Scalar::Util) >= 1.10 for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl-macros for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl-libs for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(threads::shared) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(threads) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(constant) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Time::Local) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Time::HiRes) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Storable) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Socket) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Scalar::Util) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Getopt::Long) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Filter::Util::Call) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec::Unix) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec::Functions) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Spec) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(File::Path) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Exporter) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Cwd) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: perl(Carp) for package: 4:perl-5.16.3-299.el7_9.x86_64
+--> Processing Dependency: libperl.so()(64bit) for package: 4:perl-5.16.3-299.el7_9.x86_64
+---> Package perl-File-Temp.noarch 0:0.23.01-3.el7 will be installed
+--> Running transaction check
+---> Package perl-Carp.noarch 0:1.26-244.el7 will be installed
+---> Package perl-Exporter.noarch 0:5.68-3.el7 will be installed
+---> Package perl-File-Path.noarch 0:2.09-2.el7 will be installed
+---> Package perl-Filter.x86_64 0:1.49-3.el7 will be installed
+---> Package perl-Getopt-Long.noarch 0:2.40-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Usage) >= 1.14 for package: perl-Getopt-Long-2.40-3.el7.noarch
+--> Processing Dependency: perl(Text::ParseWords) for package: perl-Getopt-Long-2.40-3.el7.noarch
+---> Package perl-PathTools.x86_64 0:3.40-5.el7 will be installed
+---> Package perl-Pod-Simple.noarch 1:3.28-4.el7 will be installed
+--> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+--> Processing Dependency: perl(Encode) for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+---> Package perl-Scalar-List-Utils.x86_64 0:1.27-248.el7 will be installed
+---> Package perl-Socket.x86_64 0:2.010-5.el7 will be installed
+---> Package perl-Storable.x86_64 0:2.45-3.el7 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9725-3.el7 will be installed
+---> Package perl-Time-Local.noarch 0:1.2300-2.el7 will be installed
+---> Package perl-constant.noarch 0:1.27-2.el7 will be installed
+---> Package perl-libs.x86_64 4:5.16.3-299.el7_9 will be installed
+---> Package perl-macros.x86_64 4:5.16.3-299.el7_9 will be installed
+---> Package perl-threads.x86_64 0:1.87-4.el7 will be installed
+---> Package perl-threads-shared.x86_64 0:1.43-6.el7 will be installed
+--> Running transaction check
+---> Package perl-Encode.x86_64 0:2.51-7.el7 will be installed
+---> Package perl-Pod-Escapes.noarch 1:1.04-299.el7_9 will be installed
+---> Package perl-Pod-Usage.noarch 0:1.63-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Text) >= 3.15 for package: perl-Pod-Usage-1.63-3.el7.noarch
+--> Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage-1.63-3.el7.noarch
+---> Package perl-Text-ParseWords.noarch 0:3.29-4.el7 will be installed
+--> Running transaction check
+---> Package perl-Pod-Perldoc.noarch 0:3.20-4.el7 will be installed
+--> Processing Dependency: perl(parent) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+---> Package perl-podlators.noarch 0:2.5.1-3.el7 will be installed
+--> Running transaction check
+---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
+---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================
+ Package                       Arch          Version                     Repository      Size
+==============================================================================================
+Installing:
+ mc                            x86_64        1:4.8.7-11.el7              base           1.7 M
+Installing for dependencies:
+ gpm-libs                      x86_64        1.20.7-6.el7                base            32 k
+ perl                          x86_64        4:5.16.3-299.el7_9          updates        8.0 M
+ perl-Carp                     noarch        1.26-244.el7                base            19 k
+ perl-Encode                   x86_64        2.51-7.el7                  base           1.5 M
+ perl-Exporter                 noarch        5.68-3.el7                  base            28 k
+ perl-File-Path                noarch        2.09-2.el7                  base            26 k
+ perl-File-Temp                noarch        0.23.01-3.el7               base            56 k
+ perl-Filter                   x86_64        1.49-3.el7                  base            76 k
+ perl-Getopt-Long              noarch        2.40-3.el7                  base            56 k
+ perl-HTTP-Tiny                noarch        0.033-3.el7                 base            38 k
+ perl-PathTools                x86_64        3.40-5.el7                  base            82 k
+ perl-Pod-Escapes              noarch        1:1.04-299.el7_9            updates         52 k
+ perl-Pod-Perldoc              noarch        3.20-4.el7                  base            87 k
+ perl-Pod-Simple               noarch        1:3.28-4.el7                base           216 k
+ perl-Pod-Usage                noarch        1.63-3.el7                  base            27 k
+ perl-Scalar-List-Utils        x86_64        1.27-248.el7                base            36 k
+ perl-Socket                   x86_64        2.010-5.el7                 base            49 k
+ perl-Storable                 x86_64        2.45-3.el7                  base            77 k
+ perl-Text-ParseWords          noarch        3.29-4.el7                  base            14 k
+ perl-Time-HiRes               x86_64        4:1.9725-3.el7              base            45 k
+ perl-Time-Local               noarch        1.2300-2.el7                base            24 k
+ perl-constant                 noarch        1.27-2.el7                  base            19 k
+ perl-libs                     x86_64        4:5.16.3-299.el7_9          updates        690 k
+ perl-macros                   x86_64        4:5.16.3-299.el7_9          updates         44 k
+ perl-parent                   noarch        1:0.225-244.el7             base            12 k
+ perl-podlators                noarch        2.5.1-3.el7                 base           112 k
+ perl-threads                  x86_64        1.87-4.el7                  base            49 k
+ perl-threads-shared           x86_64        1.43-6.el7                  base            39 k
+
+Transaction Summary
+==============================================================================================
+Install  1 Package (+28 Dependent packages)
+
+Total download size: 13 M
+Installed size: 42 M
+Is this ok [y/d/N]:
+Exiting on user command
+Your transaction was saved, rerun it with:
+ yum load-transaction /tmp/yum_save_tx.2024-02-14.21-16.UGlgR4.yumtx
+[트랜잭션을 종료하였으며 해당 트랜잭션은 저장되었다. 필요시 다시 실행가능]
+[root@localhost ~]#
+[root@localhost ~]# man fork
+[root@localhost ~]# man puts
+[root@localhost ~]# man man
+[root@localhost ~]# man useradd
+[root@localhost ~]# man man
+[root@localhost ~]#
+[root@localhost ~]# help ls
+-bash: help: no help topics match `ls'.  Try `help help' or `man -k ls' or `info ls'.
+[ls 는 help명령어로는 도움받을 수 없다.(참고:--help로는 도움가능)]
+[root@localhost ~]# help cd
+cd: cd [-L|[-P [-e]]] [dir]
+    Change the shell working directory.
+
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+
+    The variable CDPATH defines the search path for the directory containing
+    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
+    A null directory name is the same as the current directory.  If DIR begins
+    with a slash (/), then CDPATH is not used.
+
+    If the directory is not found, and the shell option `cdable_vars' is set,
+    the word is assumed to be  a variable name.  If that variable has a value,
+    its value is used for DIR.
+
+    Options:
+        -L      force symbolic links to be followed
+        -P      use the physical directory structure without following symbolic
+        links
+        -e      if the -P option is supplied, and the current working directory
+        cannot be determined successfully, exit with a non-zero status
+
+    The default is to follow symbolic links, as if `-L' were specified.
+
+    Exit Status:
+    Returns 0 if the directory is changed, and if $PWD is set successfully when
+    -P is used; non-zero otherwise.
+[root@localhost ~]#
+[root@localhost ~]# man cd
+[root@localhost ~]# man ls
+[root@localhost ~]# man useradd
+[root@localhost ~]# cd --help
+-bash: cd: --: invalid option
+cd: usage: cd [-L|[-P [-e]]] [dir]
+[root@localhost ~]# ls --help
+사용법: ls [<옵션>]... [<파일>]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --all                  do not ignore entries starting with .
+  -A, --almost-all           do not list implied . and ..
+      --author               with -l, print the author of each file
+  -b, --escape               print C-style escapes for nongraphic characters
+      --block-size=SIZE      scale sizes by SIZE before printing them; e.g.,
+                               '--block-size=M' prints sizes in units of
+                               1,048,576 bytes; see SIZE format below
+  -B, --ignore-backups       do not list implied entries ending with ~
+  -c                         with -lt: sort by, and show, ctime (time of last
+                               modification of file status information);
+                               with -l: show ctime and sort by name;
+                               otherwise: sort by ctime, newest first
+  -C                         list entries by columns
+      --color[=WHEN]         colorize the output; WHEN can be 'never', 'auto',
+                               or 'always' (the default); more info below
+  -d, --directory            list directories themselves, not their contents
+  -D, --dired                generate output designed for Emacs' dired mode
+  -f                         do not sort, enable -aU, disable -ls --color
+  -F, --classify             append indicator (one of */=>@|) to entries
+      --file-type            likewise, except do not append '*'
+      --format=WORD          across -x, commas -m, horizontal -x, long -l,
+                               single-column -1, verbose -l, vertical -C
+      --full-time            like -l --time-style=full-iso
+  -g                         like -l, but do not list owner
+      --group-directories-first
+                             group directories before files;
+                               can be augmented with a --sort option, but any
+                               use of --sort=none (-U) disables grouping
+  -G, --no-group             in a long listing, don't print group names
+  -h, --human-readable       with -l, print sizes in human readable format
+                               (e.g., 1K 234M 2G)
+      --si                   likewise, but use powers of 1000 not 1024
+  -H, --dereference-command-line
+                             follow symbolic links listed on the command line
+      --dereference-command-line-symlink-to-dir
+                             follow each command line symbolic link
+                               that points to a directory
+      --hide=PATTERN         do not list implied entries matching shell PATTERN
+                               (overridden by -a or -A)
+      --indicator-style=WORD  append indicator with style WORD to entry names:
+                               none (default), slash (-p),
+                               file-type (--file-type), classify (-F)
+  -i, --inode                print the index number of each file
+  -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN
+  -k, --kibibytes            default to 1024-byte blocks for disk usage
+  -l                         use a long listing format
+  -L, --dereference          when showing file information for a symbolic
+                               link, show information for the file the link
+                               references rather than for the link itself
+  -m                         fill width with a comma separated list of entries
+  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs
+  -N, --literal              print raw entry names (don't treat e.g. control
+                               characters specially)
+  -o                         like -l, but do not list group information
+  -p, --indicator-style=slash
+                             append / indicator to directories
+  -q, --hide-control-chars   print ? instead of nongraphic characters
+      --show-control-chars   show nongraphic characters as-is (the default,
+                               unless program is 'ls' and output is a terminal)
+  -Q, --quote-name           enclose entry names in double quotes
+      --quoting-style=WORD   use quoting style WORD for entry names:
+                               literal, locale, shell, shell-always, c, escape
+  -r, --reverse              reverse order while sorting
+  -R, --recursive            list subdirectories recursively
+  -s, --size                 print the allocated size of each file, in blocks
+  -S                         sort by file size
+      --sort=WORD            sort by WORD instead of name: none (-U), size (-S),
+                               time (-t), version (-v), extension (-X)
+      --time=WORD            with -l, show time as WORD instead of default
+                               modification time: atime or access or use (-u)
+                               ctime or status (-c); also use specified time
+                               as sort key if --sort=time
+      --time-style=STYLE     with -l, show times using style STYLE:
+                               full-iso, long-iso, iso, locale, or +FORMAT;
+                               FORMAT is interpreted like in 'date'; if FORMAT
+                               is FORMAT1<newline>FORMAT2, then FORMAT1 applies
+                               to non-recent files and FORMAT2 to recent files;
+                               if STYLE is prefixed with 'posix-', STYLE
+                               takes effect only outside the POSIX locale
+  -t                         sort by modification time, newest first
+  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8
+  -u                         with -lt: sort by, and show, access time;
+                               with -l: show access time and sort by name;
+                               otherwise: sort by access time
+  -U                         do not sort; list entries in directory order
+  -v                         natural sort of (version) numbers within text
+  -w, --width=COLS           assume screen width instead of current value
+  -x                         list entries by lines instead of by columns
+  -X                         sort alphabetically by entry extension
+  -1                         list one file per line
+
+SELinux options:
+
+  --lcontext                 Display security context.   Enable -l. Lines
+                             will probably be too wide for most displays.
+  -Z, --context              Display security context so it fits on most
+                             displays.  Displays only mode, user, group,
+                             security context and file name.
+  --scontext                 Display only security context and file name.
+      --help     이 도움말을 표시하고 끝냅니다
+      --version  버전 정보를 출력하고 끝냅니다
+
+SIZE is an integer and optional unit (example: 10M is 10*1024*1024).  Units
+are K, M, G, T, P, E, Z, Y (powers of 1024) or KB, MB, ... (powers of 1000).
+
+Using color to distinguish file types is disabled both by default and
+with --color=never.  With --color=auto, ls emits color codes only when
+standard output is connected to a terminal.  The LS_COLORS environment
+variable can change the settings.  Use the dircolors command to set it.
+
+Exit status:
+ 0  if OK,
+ 1  if minor problems (e.g., cannot access subdirectory),
+ 2  if serious trouble (e.g., cannot access command-line argument).
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+Report ls translation bugs to <http://translationproject.org/team/>
+For complete documentation, run: info coreutils 'ls invocation'
+[root@localhost ~]#
+[root@localhost ~]# help cd
+cd: cd [-L|[-P [-e]]] [dir]
+    Change the shell working directory.
+
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+
+    The variable CDPATH defines the search path for the directory containing
+    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
+    A null directory name is the same as the current directory.  If DIR begins
+    with a slash (/), then CDPATH is not used.
+
+    If the directory is not found, and the shell option `cdable_vars' is set,
+    the word is assumed to be  a variable name.  If that variable has a value,
+    its value is used for DIR.
+
+    Options:
+        -L      force symbolic links to be followed
+        -P      use the physical directory structure without following symbolic
+        links
+        -e      if the -P option is supplied, and the current working directory
+        cannot be determined successfully, exit with a non-zero status
+
+    The default is to follow symbolic links, as if `-L' were specified.
+
+    Exit Status:
+    Returns 0 if the directory is changed, and if $PWD is set successfully when
+    -P is used; non-zero otherwise.
+[root@localhost ~]#
+[root@localhost ~]# man cd
+[root@localhost ~]# man bash
+[root@localhost ~]# man cd
+[root@localhost ~]# man BASH_BUILTINS
+No manual entry for BASH_BUILTINS
+[root@localhost ~]# man cd
+[root@localhost ~]#
+[root@localhost ~]# help pwd
+pwd: pwd [-LP]
+    Print the name of the current working directory.
+
+    Options:
+      -L        print the value of $PWD if it names the current working
+        directory
+      -P        print the physical directory, without any symbolic links
+
+    By default, `pwd' behaves as if `-L' were specified.
+
+    Exit Status:
+    Returns 0 unless an invalid option is given or the current directory
+    cannot be read.
+[root@localhost ~]# pwd --help
+-bash: pwd: --: invalid option
+pwd: usage: pwd [-LP]
+[root@localhost ~]#
+[root@localhost ~]# pwd
+/root
+[root@localhost ~]# pwd -L
+/root
+[root@localhost ~]# pwd -P
+/root
+[root@localhost ~]# cd /bin
+[root@localhost bin]# pwd
+/bin
+[root@localhost bin]# pwd -L
+[-L 옵션=심볼릭링크를 해석하지 않고 원본경로를 출력]
+/bin
+[root@localhost bin]# pwd -P
+[-P 옵션=모든 심볼릭링크를 따라가 최종적인 절대경로를 출력]
+/usr/bin
+[root@localhost bin]# ls -l /
+[-l 옵션=자세히. 자세히에 포함되는 옵션(순서대로) ]
+1.파일유형 및 허가권(e.g dr유형wxr-xr-x허가원)
+2.링크 수
+3.소유자 4.그룹
+5.파일크기
+6.마지막 수정 날짜 및 시간
+7.파일 또는 디렉토리 이름
+합계 16
+lrwxrwxrwx.   1 root root    7  2월  8 20:23 bin -> usr/bin
+dr-xr-xr-x.   5 root root 4096  2월  8 20:29 boot
+drwxr-xr-x.  19 root root 3260  2월 14 20:36 dev
+drwxr-xr-x.  73 root root 8192  2월 14 20:36 etc
+drwxr-xr-x.   3 root root   24  2월  8 20:28 home
+lrwxrwxrwx.   1 root root    7  2월  8 20:23 lib -> usr/lib
+lrwxrwxrwx.   1 root root    9  2월  8 20:23 lib64 -> usr/lib64
+drwxr-xr-x.   2 root root    6  4월 11  2018 media
+drwxr-xr-x.   2 root root    6  4월 11  2018 mnt
+drwxr-xr-x.   2 root root    6  4월 11  2018 opt
+dr-xr-xr-x. 134 root root    0  2월 14 20:36 proc
+dr-xr-x---.   2 root root  135  2월  8 20:52 root
+drwxr-xr-x.  23 root root  620  2월 14 21:17 run
+lrwxrwxrwx.   1 root root    8  2월  8 20:23 sbin -> usr/sbin
+drwxr-xr-x.   2 root root    6  4월 11  2018 srv
+dr-xr-xr-x.  13 root root    0  2월 14 20:36 sys
+drwxrwxrwt.   8 root root  260  2월 14 21:16 tmp
+drwxr-xr-x.  13 root root  155  2월  8 20:23 usr
+drwxr-xr-x.  19 root root  267  2월  8 20:34 var
+[root@localhost bin]#
+[root@localhost bin]# cd
+[root@localhost ~]# ls -l /
+합계 16
+lrwxrwxrwx.   1 root root    7  2월  8 20:23 bin -> usr/bin
+dr-xr-xr-x.   5 root root 4096  2월  8 20:29 boot
+drwxr-xr-x.  19 root root 3260  2월 14 20:36 dev
+drwxr-xr-x.  73 root root 8192  2월 14 20:36 etc
+drwxr-xr-x.   3 root root   24  2월  8 20:28 home
+lrwxrwxrwx.   1 root root    7  2월  8 20:23 lib -> usr/lib
+lrwxrwxrwx.   1 root root    9  2월  8 20:23 lib64 -> usr/lib64
+drwxr-xr-x.   2 root root    6  4월 11  2018 media
+drwxr-xr-x.   2 root root    6  4월 11  2018 mnt
+drwxr-xr-x.   2 root root    6  4월 11  2018 opt
+dr-xr-xr-x. 134 root root    0  2월 14 20:36 proc
+dr-xr-x---.   2 root root  135  2월  8 20:52 root
+drwxr-xr-x.  23 root root  620  2월 14 21:17 run
+lrwxrwxrwx.   1 root root    8  2월  8 20:23 sbin -> usr/sbin
+drwxr-xr-x.   2 root root    6  4월 11  2018 srv
+dr-xr-xr-x.  13 root root    0  2월 14 20:36 sys
+drwxrwxrwt.   8 root root  260  2월 14 21:16 tmp
+drwxr-xr-x.  13 root root  155  2월  8 20:23 usr
+drwxr-xr-x.  19 root root  267  2월  8 20:34 var
+[root@localhost ~]#
+[root@localhost ~]# cd/boot [명령어와 디렉터리 사이에 띄어쓰기 오류]
+-bash: cd/boot: 그런 파일이나 디렉터리가 없습니다
+[root@localhost ~]# cd /boot
+[root@localhost boot]# pwd
+/boot
+[root@localhost boot]# PS1="[\u@\h \w]\\$ "
+[root@localhost /boot]# PS1="[\u@\h \W]\\$ "
+=작업하는동안 보여지는 프롬프터의 모양[root@localhost /boot]
+[root@localhost boot]# cd /home
+[root@localhost home]# pwd
+/home
+[root@localhost home]# # askdfjaskdfjak
+[root@localhost home]# cd # cd /root  cd $HOME cd ~
+[root@localhost ~]# cd -
+/home
+[root@localhost home]# cd /root
+[root@localhost ~]# pwd
+/root
+[root@localhost ~]# cd -
+/home
+[root@localhost home]# echo환경변수 출력명령어 $HOME (환경변수는 대문자,앞에 $를 붙인다.)
+/root
+[root@localhost home]# cd $HOME
+[root@localhost ~]# pwd
+/root
+[root@localhost ~]# cd - [이전에 작업하던 디렉터리로 이동]
+/home
+[root@localhost home]# cd ~ [사용자의 홈 디렉터리로 이동]
+[root@localhost ~]# pwd
+/root
+[root@localhost ~]#
+[root@localhost ~]# mkdir --help
+Usage: mkdir [OPTION]... DIRECTORY...
+Create the DIRECTORY(ies), if they do not already exist.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -m, --mode=MODE   set file mode (as in chmod), not a=rwx - umask
+  -p, --parents     no error if existing, make parent directories as needed
+  -v, --verbose     print a message for each created directory
+  -Z                   set SELinux security context of each created directory
+                         to the default type
+      --context[=CTX]  like -Z, or if CTX is specified then set the SELinux
+                         or SMACK security context to CTX
+      --help     이 도움말을 표시하고 끝냅니다
+      --version  버전 정보를 출력하고 끝냅니다
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+Report mkdir translation bugs to <http://translationproject.org/team/>
+For complete documentation, run: info coreutils 'mkdir invocation'
+[root@localhost ~]#
+[root@localhost ~]# pwd
+/root
+
+디렉터리 A를 생성한다.
+[root@localhost ~]# mkdir A
+
+디렉터리 B C D E를 생성한다.
+여러 디렉터리를 생성할 수 있는 이유는 mkdir --help 를 보면 Usage: mkdir [OPTION]... DIRECTORY...
+... (여러 개)의 디렉터리를 사용할 수 있기 때문이다.
+[root@localhost ~]# mkdir B C D E
+
+현재 디렉터리의 파일의 리스트를 출력한다.
+[root@localhost ~]# ls
+A  B  C  D  E  anaconda-ks.cfg
+[root@localhost ~]# ls -l
+합계 4
+drwxr-xr-x. 2 root root    6  2월 14 21:41 A
+drwxr-xr-x. 2 root root    6  2월 14 21:41 B
+drwxr-xr-x. 2 root root    6  2월 14 21:41 C
+drwxr-xr-x. 2 root root    6  2월 14 21:41 D
+drwxr-xr-x. 2 root root    6  2월 14 21:41 E
+-rw-------. 1 root root 1895  2월  8 20:29 anaconda-ks.cfg
+[root@localhost ~]# rmdir --help
+Usage: rmdir [OPTION]... DIRECTORY... [****]=[창 안에 있는 옵션은 필수 사항이 아니다.]
+'...'한 번에 여러개를 수행할 수 있다(e.g 여러개의 dir를 한번에 rm)
+Remove the DIRECTORY(ies), if they are empty.
+
+      --ignore-fail-on-non-empty
+                  ignore each failure that is solely because a directory
+                    is non-empty
+  -p, --parents   remove DIRECTORY and its ancestors; e.g., 'rmdir -p a/b/c' is
+                    similar to 'rmdir a/b/c a/b a'
+  -v, --verbose   output a diagnostic for every directory processed
+      --help     이 도움말을 표시하고 끝냅니다
+      --version  버전 정보를 출력하고 끝냅니다
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+Report rmdir translation bugs to <http://translationproject.org/team/>
+For complete documentation, run: info coreutils 'rmdir invocation'
+[root@localhost ~]#
+[root@localhost ~]# rmdir A
+[root@localhost ~]# ls
+B  C  D  E  anaconda-ks.cfg
+[root@localhost ~]# rmdir B C[...]
+[root@localhost ~]# ls
+D  E  anaconda-ks.cfg
+[root@localhost ~]# rm --help
+Usage: rm [OPTION]... FILE...
+Remove (unlink) the FILE(s).
+
+  -f, --force           ignore nonexistent files and arguments, never prompt
+  -i                    prompt before every removal
+  -I                    prompt once before removing more than three files, or
+                          when removing recursively; less intrusive than -i,
+                          while still giving protection against most mistakes
+      --interactive[=WHEN]  prompt according to WHEN: never, once (-I), or
+                          always (-i); without WHEN, prompt always
+      --one-file-system  when removing a hierarchy recursively, skip any
+                          directory that is on a file system different from
+                          that of the corresponding command line argument
+      --no-preserve-root  do not treat '/' specially
+      --preserve-root   do not remove '/' (default)
+  -r, -R, --recursive   remove directories and their contents recursively
+  -d, --dir             remove empty directories
+  -v, --verbose         explain what is being done
+      --help     이 도움말을 표시하고 끝냅니다
+      --version  버전 정보를 출력하고 끝냅니다
+
+By default, rm does not remove directories.  Use the --recursive (-r or -R)
+option to remove each listed directory, too, along with all of its contents.
+
+To remove a file whose name starts with a '-', for example '-foo',
+use one of these commands:
+  rm -- -foo
+
+  rm ./-foo
+
+Note that if you use rm to remove a file, it might be possible to recover
+some of its contents, given sufficient expertise and/or time.  For greater
+assurance that the contents are truly unrecoverable, consider using shred.
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+Report rm translation bugs to <http://translationproject.org/team/>
+For complete documentation, run: info coreutils 'rm invocation'
+[root@localhost ~]#
+[root@localhost ~]# ls
+D  E  anaconda-ks.cfg
+[root@localhost ~]#
+[root@localhost ~]# ls
+D  E  anaconda-ks.cfg
+[root@localhost ~]# ll [=ls -l 명령어와 같다.]
+합계 4
+drwxr-xr-x. 2 root root    6  2월 14 21:41 D
+drwxr-xr-x. 2 root root    6  2월 14 21:41 E
+-rw-------. 1 root root 1895  2월  8 20:29 anaconda-ks.cfg
+[root@localhost ~]# alias ll
+alias ll='ls -l --color=auto'
+[root@localhost ~]# rm -rf D
+[root@localhost ~]# ls
+E  anaconda-ks.cfg
+[root@localhost ~]# rm E
+rm: cannot remove `E': 디렉터리입니다
+[root@localhost ~]# rm -rf E
+[root@localhost ~]# ls
+anaconda-ks.cfg
+[root@localhost ~]# ll
+합계 4
+-rw-------. 1 root root 1895  2월  8 20:29 anaconda-ks.cfg
+[root@localhost ~]# rm anaconda-ks.cfg
+rm: remove 일반 파일 `anaconda-ks.cfg'?
+[root@localhost ~]# ls
+anaconda-ks.cfg
+[root@localhost ~]# alias [명령어를 사용자 정의 단축키로 바꿀 수 있는 명령어]
+(e.g alias ll='ls -l')(alias 단축키='기존 명령어')
+[기본적으로는 일회성이나 ~/.bashrc파일에 추가하면 고정시킬 수 있다.]
+alias cp='cp -i'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias mv='mv -i'
+alias rm='rm -i'
+alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+[root@localhost ~]# \rm anaconda-ks.cfg
+[root@localhost ~]# ls
