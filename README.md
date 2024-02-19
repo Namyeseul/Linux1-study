@@ -1,40 +1,5 @@
 
 
-
-실습> super putty 설치하기
-
-공식사이트: 
-  . https://www.puttygen.com/superputty
-
-super putty란?
-putty 기반의 터미널로 putty의 단점을 보완해서 여러 터미널을 동시에 접속할 수 있게 구현된 무료 터미널이다.
-
-1. 다운로드
-공식사이트로 접속해서 SuperPuTTY-1.4.0.9.zip 파일을 다운로드 받는다.
-
-2. 압축해제
-2024.2.14 기준으로 버전이 SuperPuTTY-1.4.0.9.zip 이며 이를 다운로드 받은 후 압축을 해제한다.
-다운로드 받은 putty.exe를 여기에 풀기 > SuperPuTTY-1.4.0.9 폴더가 생성된다.
-이 SuperPuTTY-1.4.0.9 폴더로 이동한다.
-
-3. putty.exe 이동
-putty.exe 파일을 SuperPuTTY-1.4.0.9 폴더에 이동시킨다.
-
-4. putty 설정
-superputty.exe를 실행하면 Options 메뉴가 나오는데 첫 번째 박스에 putty.exe 경로를 설정한다. 
-나중에 다시 재설정은 메뉴 > Tools > Options 에서 다시 재설정이 가능하다.
-
-5. 세션 등록
-메뉴 > View > Sessions 를 클릭한다.
-
-PuTTY Sessions 에서 마우스 오른쪽을 클릭해서 New 
-Session Name: CentOS7-2
-Host Name: 192.168.100.3
-TCP port: 22
-Connection type: SSH
-
-[Save] 버튼을 클릭해서 저장한다.
-
 시스템 환경 변수:
 
 HOME: 사용자의 홈 디렉토리
@@ -137,25 +102,6 @@ Ctrl + d 한 글자 삭제
 
 
 
-man, man-pages 패키지를 설치한다.
-[root@localhost ~]# yum -y install man man-pages
-[root@localhost ~]# man ls
-[root@localhost ~]# man fork
-[root@localhost ~]# man puts
-[root@localhost ~]# man man
-[root@localhost ~]# man useradd
-
-
-1   Executable programs or shell commands
-2   System calls (functions provided by the kernel)
-3   Library calls (functions within program libraries)
-4   Special files (usually found in /dev)
-5   File formats and conventions eg /etc/passwd
-6   Games
-7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
-8   System administration commands (usually only for root)
-9   Kernel routines [Non standard]
-
 명령어의 도움말
   . 외부 명령어 --help, man 외부 명령어 
     - e.g.) ls --help, man ls
@@ -246,9 +192,9 @@ pwd(Print Working Directory): 현재 디렉터리의 위치를 출력하는 명�
        -F 파일의 종류에 따라 문자가 붙는다.
 
     파일의 종류                    -F옵션시 보여지는 문자
-    -: 일반파일이면서 실행파일   *
+    -: 일반파일이면서 실행파일       *
    d: 디렉터리                       /
-   l: 심볼릭링크(바로가기)        @
+   l: 심볼릭링크(바로가기)           @
    b: 블럭장치(하드디스크)
    c: 문자장치(터미널)
    p: 파이프                         |(shift+\)
@@ -262,7 +208,12 @@ pwd(Print Working Directory): 현재 디렉터리의 위치를 출력하는 명�
     내부명령어 umask와 관련이 있다.
    #umask
    0022
-- rw- r-- r--
+- rw- r-- r-- 6 4 4
+- rwx rwx rwx 7 7 7
+- rw- rw- rw- 6 6 6
+- r-x --x rw- 5 1 6
+- r=4 w=2 x=1
+- r=읽기 w=쓰기 x=실행
 8진수
 rw-
 0 000
@@ -274,10 +225,10 @@ rw-
 6 110
 7 111
   dirA 디렉터리에 파일의 목록을 출력한다.
-# ls -l dirA
+# ls -l dirA = #ll A
 합계 0
 
-  -d 디렉터리일 때 디렉터리 자체의 설정된 권한등... 자세히 출력한다.
+  -d 검색대상이 디렉터리일 때 디렉터리 자체의 설정된 권한등... 자세히 출력한다.
 
 # ls -ld dirA
 drwxr-xr-x. 2 root root 6  2월 19 20:19 dirA
@@ -370,8 +321,9 @@ cp: overwrite `group'?  <-- 엔터 (복사가 안된다.)
   . cat: 파일의 내용을 출력하는 명령어
 
   . less/more: 파일의 내용을 출력하는 명령어 (페이지 단위)
-# less /etc/passwd
-# more /etc/passwd
+# less /etc/passwd /키로 원하는 단어를 검색하고 해당 부분으로 이동가능
+# more /etc/passwd 입력이 제한되어 있어 검색기능이X 
+둘다 q키로 끔
 
   . head: 파일의 처음 부분의 내용을 출력하는 명령어
     ls --help | head
@@ -398,8 +350,8 @@ cp: overwrite `group'?  <-- 엔터 (복사가 안된다.)
   
 
     -: 일반파일이면서 실행파일   *          찾다 / -[1하위 디렉토리에서만] -디렉토리타입 -상세정보
-   d: 디렉터리                       /              # find / -maxdepth 1 -type d  -ls
-   l: 심볼릭링크(바로가기)        @             # find / -maxdepth 1 -type l  -ls
+   d: 디렉터리                       /              # find -maxdepth 1 -type d  -ls
+   l: 심볼릭링크(바로가기)        @             # find -maxdepth 1 -type l  -ls
    b: 블럭장치(하드디스크)                       # find /dev -type b -ls
    c: 문자장치(터미널)                            # find /dev -type c -ls
    p: 파이프                         |(shift+\)    # find / -type p -ls
