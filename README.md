@@ -348,7 +348,6 @@ cp: overwrite `group'?  <-- 엔터 (복사가 안된다.)
   . find: 파일을 검색하는 명령어
    -type <파일형식>
   
-
     -: 일반파일이면서 실행파일   *          찾다 / -[1하위 디렉토리에서만] -디렉토리타입 -상세정보
    d: 디렉터리                       /              # find -maxdepth 1 -type d  -ls
    l: 심볼릭링크(바로가기)        @             # find -maxdepth 1 -type l  -ls
