@@ -3,6 +3,7 @@
 
 o ls -l 명령어에서 첫 문자에 해당하는 파일의 종류는 무엇인가?
 -: 일반파일 (txt, jpg, ppt...)
+ +find 명령어의 옵션으로서 일반파일을 찾을 때는 -f
 d: 디렉토리 파일
 l: 심볼릭링크 파일 (바로가기)
 b: 블록디바이스 파일 (하드디스크, cdROM,usb)
@@ -55,14 +56,15 @@ o 명령행에서 ; 의 의미는 무엇인가?
 
 o 아래 test1 디렉터리를 생성할 때 mkdir의 옵션과 ls를 명령어의 옵션은 무엇인가?
 d---------. 2 root root 6  2월 19 20:31 test1 
-mkdir -m 000 test1 ;ls -ld test1
+mkdir -m 000 test1; ls -ld test1
 mkdir -m 000 test1 
-ls -ld test1
+>ls -ld test1
 
 o 아래 test2 디렉터리를 생성할 때 mkdir의 옵션은 무엇인가?
 drwx------. 2 root root 6  2월 19 20:33 test2
+mkdir -m 000 test2; ls -ld test2
 mkdir -m 700 test2 
-ls -ld test2
+>ls -ld test2
 
 o 아래처럼 디렉터리를 생성하려고 했더니 에러가 발생하였다. 원인은 무엇인가? 
 # mkdir test3/test4  
