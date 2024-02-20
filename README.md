@@ -311,8 +311,96 @@ cp: overwrite `group'?  <-- 엔터 (복사가 안된다.)
 
 
   . mv: 파일의 이동, 파일의 이름을 변경하는 명령어
+2개의 기능이 있다. (이동, 이름 변경)
+Usage: mv [OPTION]... [-T] SOURCE DEST
+  or:  mv [OPTION]... SOURCE... DIRECTORY
+  or:  mv [OPTION]... -t DIRECTORY SOURCE...
+Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.
+
+# cat > a.txt 
+^d  <-- Ctrl + D
+
+a.txt 파일을 b.txt 파일로 이름을 변경한다.
+# mv a.txt b.txt
+
+# mkdir backup
+
+현재 디렉터리에 있는 b.txt 파일을 backup 디렉터리에 이동한다.
+# mv b.txt backup
+
+/backup/b.txt 파일을 현재 디렉터리로 이동시킨다.
+# mv backup/b.txt .
+
+>>> 아래 명령어들과 모두 동일하다. <<<
+mv backup/b.txt ./b.txt
+mv backup/b.txt b.txt
+mv backup/b.txt /root
+mv backup/b.txt /root/b.txt
+mv backup/b.txt $HOME
+mv backup/b.txt $HOME/b.txt
+
+# mkdir backup
+
+현재 디렉터리에 있는 b.txt 파일을 backup 디렉터리에 이동한다.
+# mv b.txt backup
 
   . ln: 심볼릭 링크나 하드 링크를 생성하는 명령어
+  
+Usage: ln [OPTION]... [-T] TARGET LINK_NAME   (1st form)
+  or:  ln [OPTION]... TARGET                  (2nd form)
+  or:  ln [OPTION]... TARGET... DIRECTORY     (3rd form)
+  or:  ln [OPTION]... -t DIRECTORY TARGET...  (4th form)
+
+lrwxrwxrwx. 1 root root  8  2월 20 21:13 hello2.py -> hello.py
+심볼릭 링크의 권한과 크기는 의미가 없다 (원본의 권한과 크기를 따르기 때문에)
+
+-s : 심볼릭 링크 파일을 생성하는 옵션
+-s 옵션이 없으면 하드링크를 생성한다.
+
+현재 디렉터리에 존재하는 hello.py 파일을 hello2.py 파일로 심볼릭 링크를 생성한다.
+# mkdir dirA; ln -s dirA DIRA
+# ls -l
+합계 0
+lrwxrwxrwx. 1 root root 4  2월 20 21:20 DIRA -> dirA
+drwxr-xr-x. 2 root root 6  2월 20 21:19 dirA
+
+# cd DIRA
+# pwd -P
+# pwd -L
+# pwd
+# cd -
+심볼릭 링크는 파티션을 넘어갈 수 있다.
+다시말해서 다른 파티션에 있는 파일을 심볼릭 링크로 생성할 수 없다.
+참고로 하드링크는 파티션을 넘어갈 수 없다.
+
+0byte 크기의 파일 /boot/a.txt 를 생성한다.
+# touch /boot/a.txt
+
+
+/boot/a.txt 파일을 /root/a.txt 파일로 심볼릭 링크 파일을 생성한다.
+# ln -s /boot/a.txt   
+
+>>> 아래 명령어는 모두 동일하다. <<<
+# ln -s /boot/a.txt a.txt
+# ln -s /boot/a.txt .
+# ln -s /boot/a.txt /root
+# ln -s /boot/a.txt /root/a.txt
+# ln -s /boot/a.txt $HOME
+# ln -s /boot/a.txt $HOME/a.txt
+
+# ll a.txt
+lrwxrwxrwx. 1 root root 11  2월 20 21:29 a.txt -> /boot/a.txt
+#ln -s hello.py hello2.py
+두 파일의 내용이 동일하다.
+# cat hello.py
+# cat hello2.py
+
+심볼릭링크는 디렉터리도 링크를 생성할 수 있다.
+# mkdir dirA; ln -s dirA DIRA
+# ls -l
+합계 0
+lrwxrwxrwx. 1 root root 4  2월 20 21:20 DIRA -> dirA
+drwxr-xr-x. 2 root root 6  2월 20 21:19 dirA
 
   . echo: 메시지와 변수의 저장된 값을 출력하는 명령어
 
@@ -361,3 +449,142 @@ cp: overwrite `group'?  <-- 엔터 (복사가 안된다.)
   . chown: 파일의 소유권을 변경하는 명령어
 
   . chgrp: 파일의 그룹을 변경하는 명령어
+
+  . whish 명령어: 명령어의 위치,유무를 알려준다.
+
+단축키
+Ctrl + S : 터미널 잠금
+Ctrl + Q : 터미널 잠금 해제
+Ctrl + C : 취소
+
+실습> nano 편집기 사용하기
+RedHat 계열: yum, dnf 를 이용해서 애플리케이션을 설치한다.
+Debian 계열: apt-get, apt 를 이용해서 애플리케이션을 설치한다.
+
+vi 편집기 사용이 어려운 분들은 nono 편집기를 사용한다.
+# yum -y install nano
+# nano test.txt
+
+  GNU nano 2.3.1               File: test.txt                            Modified
+
+이 파일은 nano 편집기를 사용해서 저장합니다.
+
+
+^G Get Help  ^O WriteOut  ^R Read File ^Y Prev Page ^K Cut Text  ^C Cur Pos
+^X Exit      ^J Justify   ^W Where Is  ^V Next Page ^U UnCut Text^T To Spell
+
+Ctrl + O를 입력하면 아래쪽에 메뉴가 바뀌고 이 상태에서 엔터를 치면 저장된다.
+
+File Name to Write: test.txt
+^G Get Help         M-D DOS Format      M-A Append          M-B Backup File
+^C Cancel           M-M Mac Format      M-P Prepend
+
+Ctrl + X를 입력하면 종료한다.
+
+저장하지 않고 Ctrl + X 를 누르면 아래처럼 3개의 메뉴가 나온다.
+Yes
+No    ^C Cancel
+ 
+
+실습> vi 편집기
+디렉터리 위치: /usr/bin/vi
+
+vi > i > 입력 ... > ESC > :q!
+# vi 
+안녕하세요.
+
+ESC > :q!
+
+
+# vi hello.py
+
+i > 아래 코드를 입력한다.
+
+print("Hello Linux!")
+
+ESC > :wq
+
+
+# cat hello.py
+print("Hello Linux!")
+
+# python hello.py
+Hello Linux!
+# ls -l hello.py
+-rw-r--r--. 1 root root 22  2월 20 20:53 hello.py
+
+
+# chmod 755 hello.py
+# ls -l hello.py
+-rwxr-xr-x. 1 root root 22  2월 20 20:53 hello.py
+
+vi hello.py > i > 입력 > ESC > :wq
+# vi hello.py
+#!/usr/bin/python
+
+print("Hello Linux!")
+
+# hello.py
+-bash: hello.py: command not found
+
+# echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+
+# ./hello.py
+Hello Linux!
+
+
+실습> 웹서버를 설치하고 심볼릭 링크 파일을 생성하기
+
+웹서버 패키지명: httpd
+
+httpd 패키지를 설치한다.
+# yum -y install httpd
+
+방화벽을 모두 중지한다.
+웹서버로 접근하는 클라이언트의 요청(Request)을 받아들이기 위해서 중지한다.
+# systemctl stop firewalld
+
+웹서버(httpd)를 실행한다. 
+# systemctl start httpd  <-- systemctl start httpd.service
+
+# cd /var/www/html
+
+:wq 단축키: ZZ
+:q! 단축키: ZQ
+
+i > 입력 > ESC > ZZ(:wq) 단축키
+# vi test.html
+홍길동 웹서버에 오신 것을 환영합니다.
+
+
+# ll
+합계 4
+-rw-r--r--. 1 root root 54  2월 20 21:42 test.html
+# cat test.html
+홍길동 웹서버에 오신 것을 환영합니다.
+
+http://192.168.100.3/
+환영 메세지가 출력된다.
+
+http://192.168.100.3/test.html
+홍길동 웹서버에 오신 것을 환영합니다.
+
+현재 디렉터리에 test.html 파일을 현재 디렉터리에 index.html 파일로 심볼릭 링크를 생성한다.
+# ln -s test.html index.html
+# ll
+합계 4
+lrwxrwxrwx. 1 root root  9  2월 20 21:45 index.html -> test.html
+-rw-r--r--. 1 root root 54  2월 20 21:42 test.html
+[root@localhost html]# cat index.html
+홍길동 웹서버에 오신 것을 환영합니다.
+
+http://192.168.100.3/
+홍길동 웹서버에 오신 것을 환영합니다.
+
+vi > i > 수정 > ESC > :wq or ZZ 
+# vi test.html
+<center>홍길동 웹서버에 오신 것을 환영합니다.</center>
+
+# cat index.html
+<center>홍길동 웹서버에 오신 것을 환영합니다.</center>
