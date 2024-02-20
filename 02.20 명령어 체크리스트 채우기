@@ -137,6 +137,7 @@ touch b.txt
 > b.txt
 cp /dev/null b.txt
 install -m 644 /dev/null b.txt
+cat > B.txt ->enter->^d
 
 o find 명령어를 이용해서 /dev 디렉터리에서 블럭 장치 파일을 찾아서 자세히 출력하는 명령어는 무엇인가?
 find /dev -type b -ls 
