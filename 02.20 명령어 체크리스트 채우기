@@ -139,21 +139,22 @@ cp /dev/null b.txt
 install -m 644 /dev/null b.txt
 
 o find 명령어를 이용해서 /dev 디렉터리에서 블럭 장치 파일을 찾아서 자세히 출력하는 명령어는 무엇인가?
-find /dev -b ll ,find /dev -b ls -l
-
-o 아래 명령어를 실행했는데 에러가 발생하였다. 에러의 원인은 무엇인가?
+find /dev -type b -ls 
 
 o 환경변수 HOME에 저장된 내용을 출력하는 명령어는 무엇인가?
 echo $HOME
 
 o LL 을 실행했을 때 ls -l 이 실행되도록 alias 명령어는 무엇인가?
-alias ls-l=ll
+alias LL=ls-l
+alias 형식: alias 새로운명령어='원래 명령어 옵션'
 
 o alias LL을 확인하는 명령어는 무엇인가?
-alias ls-l
+alias LL
 
 o alias LL을 삭제하는 명령어는 무엇인가?
-unalias ls-l=ll
+unalias ll
+형식: unalias alias 명령어
 
 o alias 명령어는 메모리/내부/외부 중 어디에 해당하는 명령어인가?
-메모리
+alias 명령어: 내부명령어
+alias로 설정한 새로운 명령어: 메모리
