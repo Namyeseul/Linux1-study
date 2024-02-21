@@ -1,0 +1,291 @@
+. grep: 파일에서 특정 패턴을 검색하는 명령어
+#which grep
+= /use/bin/grep /usr/bin/에 위치함 
+# LANG=C grep --help | head
+= LANG=C(영어로 출력한다는 의미의 환경변수 값) grep --help(외부명령어 사용법 찾기) 
+| head 구분자를 주고 head 명령어를 입력해 2가지 명령어를 동시 수행(사용법 상위 10줄만 출력)
+
+# cat << EOF > grep.txt
+cat <<EOF가 나올 때까지 > gre.txt에 저장
+=아랫글 부터 내용을 써내려갈 수 있고 [EOP]가 나오면 grep.txt에 저장한다
+<< = 입력 리다이렉션
+> = 출력 리다이렉션(기본값은 화면이지만 파일로 저장할 때도 사용한다.)
+e.g ls > ls.txt
+=현재 위치에서 ls를 사용해서 출력되는 값을 내용으로한 ls.txt라는 이름의 파일을 만든다.
+
+# cat grep.txt -n
+cat ~~~~ [-n]은 넘버링을 메기는 옵션
+=cat을 이용해서 grep.txt의 내용을 출력하는데 줄에 넘버링을 붙여서 출력한다.
+\grep 111 grep.txt alias
+=grep에는 기본적으로 alias grep='grep --color=auto' 값이 붙어는데 
+grep에 \를 붙임으로 alias 명령어를 무시
+
+alias grep='grep --color=auto' 
+= grep 명령어로 출력되는 파일은 컬러로 표시
+
+grep -E '111|333' grep.txt
+-E = 2개 이상을 찾을 때 사용하는 옵션 
+|(shift+\) = 구분자
+' ' = 인수를 묶는 역할.
+
+grep ^root /etc/passwd
+=/etc/passwd 파일에서 [root]로 시작하는 라인을 출력한다.
+^000 = [000]로 시작하는 라인을 출력한다.
+grep root /etc/passwd
+=/etc/passwd 파일에서 root가 들어가는 라인을 출력한다.
+
+# ll / | grep ^l
+= ls -l '/' | l로 시작하는 파일만 출력
+
+
+. chmod: 파일의 허가권을 변경하는 명령어
+-rw-r--r--  / .  / 1 / root /  /root  / 1042  2월 21 19:35 passwd
+chmod    /  acl /    /chown / chown,chgrp
+- rw-    r--    r--
+파일형식'u'ser 'g'rup 'o'ther
+
+# chmod u+x passwd
+=passwd파일의 소유자 권한 x(실행)을 추가한다.
+#chmod u-x passwd
+=passwd파일의 소유자 권한 x(실행)을 제거한다.
+
+# chmod g+w passwd -c
+passwd 파일의 그룹의 권한을 w를 추가한다.
+-c = 변경 내역을 출력하는 옵션
+
+# chmod u-r,g-w,o-wx passwd -c
+=심볼릭 모드를 사용한 허가권(퍼미션)변경
+심볼릭 모드 사용시: ugoa,+,-,=,r,w,x,s,t
+
+# chmod [0]644 passwd -c
+=octal mode(8진수 모드)를 사용한 허가권(퍼미션)변경 
+octal mode는 0~7사이의 범위를 갖는다.
+ 0 / 6 / 4 / 4 
+특수권한 / 소유자 / 그룹 / 그 외 사용자
+특수권한 = set-UID,set-GID, Sticky-Bit
+set-UID = user의 x -> s 가 된다. (셋유아이디)
+set-GID = group의 x -> s 가 된다. (셋쥐아이디)
+Sticky-Bit =other의  x -> t 가 된다. (스티키 비트)
+
+# chmod 4 passwd -c    = 0004
+# chmod 24 passwd -c   = 0024
+# chmod 644 passwd -c  = 0644
+chmod 7777 passwd -c   = 모든 권한을 부여한다.
+= -rwsrwsrwt. 1 root root 1042  2월 21 19:35 passwd
+s = x권한이 포함 됌, S = x권한은 없음, t = x권한이 포함 됌 = T = x권한은 없음
+# chmod u-x passwd -c  <-- 7677 (rwSrwsrwt)
+# chmod g-x passwd -c  <-- 7667 (rwSrwSrwt)
+# chmod o-x passwd -c  <-- 7666 (rwSrwSrwT)
+# chmod a= passwd -c   <-- 0000 (---------)
+
+
+ . chown: 파일의 소유권(소유자, 사용자)을 변경하는 명령어
+Usage: chown [OPTION]... [OWNER][:[GROUP]] FILE...
+  or:  chown [OPTION]... --reference=RFILE FILE...
+Change the owner and/or group of each FILE to OWNER and/or GROUP.
+With --reference, change the owner and group of each FILE to those of RFILE.
+
+
+# ls -l passwd
+----------. 1 root root 1042  2월 21 19:35 passwd
+                |   |
+                |   +-- /etc/group 파일의 번호(GID)와 매칭되는 이름을 출력한다.
+                +-- /etc/passwd 파일의 번호(UID)와 매칭되는 이름을 출력한다.
+
+
+# chown 2024 passwd
+# ls -l passwd
+----------. 1 2024 root 1042  2월 21 19:35 passwd
+= 2024에 대응하는 UID가 /etc/passwd에 없었기 때문에 바꾼 숫자 그대로 출력
+-l 옵션을 사용했기 때문에 출력은해야 하는데 2024에 해당하는 UID를  찾는데 없으므로 그냥 숫자로 보여준다.
+
+# chown -c root passwd
+changed ownership of `passwd' from 2024 to root
+=UID를 root로 바꾼다.
+
+# ll passwd
+----------. 1 root root 1042  2월 21 19:35 passwd
+
+# chown -c games passwd
+changed ownership of `passwd' from root to games
+
+# ll passwd
+----------. 1 games root 1042  2월 21 19:35 passwd
+               |
+               +-- 왜? 문자 games로 나왔는가? 
+                ( -l 옵션을 사용했고 /etc/passwd 해당하는 UID의 사용자가 있기 때문에 이름으로 보여준다.)
+
+  . chgrp: 파일의 소유권(그룹)을 변경하는 명령어
+# chown root.root passwd
+# ll passwd
+----------. 1 root root 1042  2월 21 19:35 passwd
+
+# grep root /etc/group
+root:x:0:
+
+# grep ^root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+passwd 파일의 소유자, 그룹을 변경한다.
+chown 명령어를 이용해서 소유자,그룹을 동시에 변경하고자 한다면 2가지 방법이 있다.
+  . 첫 번째 방법: chown 소유자명.그룹명 파일
+  . 두 번째 방법: chown 소유자명:그룹명 파일
+# chown 0.0 passwd
+# chown 1:1 passwd
+# ls -l passwd
+# ls -n passwd
+
+
+# chown .root passwd
+소유자명이 생략되었기 때문에 그룹만 변경한다.
+
+#chown daemon. passwd
+그룹명이 생력되었기 때문에 소유자명을 그룹명도 같이 바꾸라는쯧
+
+# chown root passwd
+소유자만 루트로 변경된다.
+
+# chown 1 passwd
+패스워드 파일의 유저가 숫자1로 소유자가 변경된다.
+# chgrp root passwd
+패스워드 파일의 그룹이 루트로 소유자가 변경된다
+
+
+실습> 사용자 생성 후 chown, chgrp 사용하기
+
+사용자를 생성하는 단계
+  . 첫 번째 단계: 사용자 생성 (useradd)
+  . 두 번째 단계: 비밀번호 설정 (passwd)
+
+# useradd user1
+# useradd user2
+
+# passwd user1
+# passwd user2
+
+[user1@localhost ~]$ id
+uid=1001(user1) gid=1001(user1) groups=1001(user1) 
+context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
+[user2@localhost ~]$ ls -ld
+drwx------. 2 user2 user2 79  2월 21 21:39 .
+현재디렉토리의 권한
+
+
+
+
+[user1@localhost ~]$ touch user1.txt
+[user1@localhost ~]$ ll user1.txt
+-rw-rw-r--. 1 user1 user1 0  2월 21 21:36 user1.txt
+
+
+login as: user2
+user2@192.168.100.3's password:
+[user2@localhost ~]$ touch user2.txt
+[user2@localhost ~]$ ll user2.txt
+-rw-rw-r--. 1 user2 user2 0  2월 21 21:39 user2.txt
+[user2@localhost ~]$ id
+uid=1002(user2) gid=1002(user2) groups=1002(user2) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[user2@localhost ~]$ grep user2 /etc/passwd
+user2:x:1002:1002::/home/user2:/bin/bash
+
+[user2@localhost ~]$ pwd
+/home/user2
+[user2@localhost ~]$ ls -ld
+drwx------. 2 user2 user2 79  2월 21 21:39 .
+
+
+[user1@localhost ~]$ cd /home/user2
+-bash: cd: /home/user2: 허가 거부
+
+[user2@localhost ~]$ chmod 755 .
+[user2@localhost ~]$ ls -l
+합계 0
+-rw-rw-r--. 1 user2 user2 0  2월 21 21:39 user2.txt
+[user2@localhost ~]$ ls -al
+합계 12
+drwxr-xr-x. 2 user2 user2  79  2월 21 21:39 .
+drwxr-xr-x. 5 root  root   50  2월 21 21:31 ..
+-rw-r--r--. 1 user2 user2  18  4월  1  2020 .bash_logout
+-rw-r--r--. 1 user2 user2 193  4월  1  2020 .bash_profile
+-rw-r--r--. 1 user2 user2 231  4월  1  2020 .bashrc
+-rw-rw-r--. 1 user2 user2   0  2월 21 21:39 user2.txt
+[user2@localhost ~]$ ls -ld
+drwxr-xr-x. 2 user2 user2 79  2월 21 21:39 .
+[user2@localhost ~]$ ls -ld .
+drwxr-xr-x. 2 user2 user2 79  2월 21 21:39 .
+[user2@localhost ~]$
+
+[user1@localhost ~]$ cd /home/user2
+[user1@localhost user2]$ pwd
+/home/user2
+[user1@localhost user2]$ ls -l
+합계 0
+-rw-rw-r--. 1 user2 user2 0  2월 21 21:39 user2.txt
+
+
+[user1@localhost ~]$ cd /home/user2
+[user1@localhost user2]$ pwd
+/home/user2
+[user1@localhost user2]$ ls -l
+합계 0
+-rw-rw-r--. 1 user2 user2 0  2월 21 21:39 user2.txt
+[user1@localhost user2]$ chown user1 user2.txt
+chown: changing ownership of `user2.txt': 명령을 허용하지 않음
+[user1@localhost user2]$
+
+[user1@localhost user2]$ cd
+[user1@localhost ~]$ pwd
+/home/user1
+[user1@localhost ~]$ ll user1.txt
+-rw-rw-r--. 1 user1 user1 0  2월 21 21:36 user1.txt
+[user1@localhost ~]$ chown user2 user1.txt
+chown: changing ownership of `user1.txt': 명령을 허용하지 않음
+
+root 사용자(슈퍼유저, 관리자)는 일반유저의 소유자를 다른 사용자로 변경할 수 있다.
+그만큼 기능이 막강하기 때문에 단점도 존재하기 때문에 시스템이 잘못된 권한들이 설정되면 시스템이 망가질 수 있다.
+그렇기 때문에 절대로 root로 사용하지 말고 일반유저로 사용해야 한다.
+일반유저에서 관리자 명령어가 필요하면 그때 root로 변경해서 사용해야 한다.
+  . 일반유저 -> 관리자 변경: $ su - -> # useradd user3
+  . 일반유저 -> 관리자 변경: $ sudo useradd user3
+
+[root@localhost ~]# ll /home/user1/user1.txt
+-rw-rw-r--. 1 user1 user1 0  2월 21 21:36 /home/user1/user1.txt
+[root@localhost ~]# ll /home/user2/user2.txt
+-rw-rw-r--. 1 user2 user2 0  2월 21 21:39 /home/user2/user2.txt
+[root@localhost ~]# chown user2 /home/user1/user1.txt
+[root@localhost ~]# ll /home/user1/user1.txt
+-rw-rw-r--. 1 user2 user1 0  2월 21 21:36 /home/user1/user1.txt
+[root@localhost ~]# chown user1 /home/user1/user1.txt -c
+changed ownership of `/home/user1/user1.txt' from user2 to user1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
