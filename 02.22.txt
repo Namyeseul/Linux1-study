@@ -139,37 +139,53 @@ passwd 명령어의 퍼미션 값이 -rwsr-xr-x ... /usr/bin/passwd 이기 때�
 
 
 *컴파일과정 공부를 위해 gcc를 다운받는 명령어와 vim / gpt추가 공부필요
+gcc(컴파일러) 다운받는 명령어 =
 yum -y install gcc make gdb glibc.i686 glibc-devel.i686 libgcc.i686 libstdc++.i686 glibc glibc-devel libgcc libstdc++
+vi의 확장팩 vim(vi improved) 다운받기
 yum -y install vim
 
 
-# vi /etc/vimrc
+# vi /etc/vimrc  = vim환경 설정하기
+
 vi 에서 o누르면 커서 밑에서 인서트
-  :
 맨아랫줄에
-환경설정 추가
-set nu
-set bg=dark
-set ai
-set ci
-set sw=4
-set ts=4
-set cursorline
-set expandtab
+설정 추가
+set nu       = 각 줄의 왼쪽에 줄번호를 표시한다.
+set bg=dark  = 백그라운드 색상을 까만색으로 한다.
+set ai       = 자동 들여쓰기 활성화
+set ci       = gc명령어로 주석을 간단하게 추가하거나 수정할 수 있게 허용
+set sw=4     = 들여쓰기에 사용되는 공백의 너비 (=4)
+set ts=4     = 탭문자의 너비를 4로 설정. 탭키가 4개의 공백문자로 대체된다.
+set cursorline = 현재 커서가 위치한 줄을 강조한다. 커서가 위치한 줄에 배경이 다른색으로 보임.
+set expandtab  = 탭 대신에 스페이스로 들여쓰기를 한다. 
 :wp
+
+set sw=4, set ts=4, set expandtap  
+= 이 3가지 설정은 코드 스타일을 일관되게 유지하고, 가독성을 높여주기 위한 설정이다.
+이 설정으로 인해 서로 설정이 다른 환경에서 코드를 입력해도 일관된 모양으로 출력이 된다.
+
+*bash나 vim 뒤에 붙은 rc에 관해*
+rc는 run commands의 약자로 초기설정과 프로그램 동작에 관련된 명령어를 실행하기 위한 .txt 파일이다.
+쉽게 말해 명령어의 초기 설정에 대한 내용이 적혀 있고, 
+이 파일을 이용해 이를 수정하거나 추가할 수 있다. 
 
 # vi .bashrc
 인서트
 alias rm='rm -i'
-alias cp='cp -i'
+alias cp='cp -i
 alias mv='mv -i'
+->아래에 추가
 alias vi='vim'
 :wp
 
 # source .bashrc
+= bash셸에 변경사항이 있을 때 새로고침해서 적용하는 명령어
+
 # vi /etc/vimrc (에러가 있으면 들어가서 고치기 없으면 스킵)
 
 # vi hello.c
+= alias vi='vim'을 설정했으므로 hello.c라는 파일을 만들고 vim으로 편집하는창이 뜬다.
+
 인서트(아래 내용의 c언어를 입력)
 #include <stdio.h>
 int main()
@@ -180,25 +196,41 @@ int main()
 :wq
 
 # gcc -o hello hello.c
+= c언어를 gcc를 이용해 저언어로 컴파일하는 명령어
+hello.c 파일을 hello 라는 이름의 파일로.
+이 때, -o 옵션은 컴파일 완료한 실행파일의 이름을 지정하는 옵션 
 
 잘 만들어졌나 확인
 # ll hello
 -rwxr-xr-x. 1 root root 8360  2월 23 20:44 hello
-~]# file hello
-hello: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=dd57f5ffe007eff4935296eee87544bdfa2b8a32, not stripped
+라고 뜨면 정상입력 완료
+
+./# file hello
 
 # ./hello
 Hello world!
 
-추가공부필요
+
 [root@localhost ~]# ./hello 1> /dev/null
+1> 옵션은 파일디스크립터 1번으로 재지정(>) 한다는 뜻.
+파일디스크립터1은 정상출력 파일실행자로
+명령어를 해석하자면 정상출력된 파일을 /dev/null로 출력한다.
+이 명령어를 입력했을때 어떤 내용이 출력된다면 그 내용은 파일스크립터 1번(정상출력)을
+통과하지 못했으므로 무언가 에러가 있다는 뜻.
+컴파일 과정에서 고언어에 문제가 있었더라면 에러가 생겨 위 명령어에 걸렸을 것이다. 
+
 [root@localhost ~]# ./hello 2> /dev/null
 Hello world!
+2> 옵션은 모든 내용이 1>과 같으나 파일디스크립터2는 에러출력 파일 실행자라는게 다르다.
+즉 1과는 반대로 2>옵션을 줬을때 무언가 출력이 된다면 정상적으로 파일이 실행된다는 뜻이고
+아무것도 출력되지 않는다면 파일에 에러가 있어서 /dev/null로 출력 됐다는 것이므로
+파일에 에러가 있다는 뜻이 된다.
+
+*/dev/null = 쓰레기를 보내는 공허폴더
+
+*vi > :set noai(자동 들여쓰기 취소) 
 
 
-
-vi > :set noai > i > 복사 > 붙여넣기 > ESC > :wq
-붙여넣기: putty에서는 마우스 오른쪽 버튼을 클릭한다.
 
 # vi fdtest.c
 
@@ -231,15 +263,16 @@ int main(void)
 = 컴파일
 
 # ./fdtest &
-= 현재 폴더에 있는 fdtest 파일을 백그라운드에서 실행해달라
-[1] 1446
+& = 현재 폴더에 있는 fdtest 파일을 백그라운드에서 실행해달라
+[1] 1446 (체크)
 [root@localhost ~]# 두 번째 파일 디스크립터 : 4
 세 번째 파일 디스크립터 : 5
 네 번째 파일 디스크립터 : 6
 
-이렇게 뜨면
+*생성된 파일의 디스크립터를 보면 0,1,2는 각각의 역할을 고정적으로 할당받고 있기 때문에
+다음에 생성된 파일에 배치된 파일디스크립터는 3부터 시작된다는 것을 확인할 수 있다.
 
-# ll /proc/1446/fd
+# ll /proc/1446(적용)/fd
 이걸로 확인하기
 
 
@@ -252,4 +285,4 @@ int main(void)
 
 
 * &  명령어는 백그라운드에서 실행해달라는 뜻
-* fd 의 의미 찾기
+* fd 의 의미 = 파일디스크립터
